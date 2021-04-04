@@ -1,75 +1,65 @@
-import './styles.css';
-import './js/template.js';
-import './template/template.hbs';
+// import { arguments } from 'file-loader'
+import './styles.css'
+import fetchArticles from './js/fetchArticles.js'
+import updateArticlesMarkup from './js/updateArticlesMarkup.js'
+import { format } from 'core-js/core/date'
 
+// fetch('http://jsonplaceholder.typicode.com/todos', options)
+// .then(response=> response.json())
+// .then(data=> console.log(data))
+
+// fetch('http://jsonplaceholder.typicode.com/photos', options)
+// .then(response=> response.json())
+// .then(data=> console.log(data))
+
+// fetch('http://hn.algolia.com/api/v1/search?query=html&tags=story', options)
+// .then(response=> response.json())
+// .then(data=> console.log(data))
 const refs = {
-    input: document.querySelector('.js-input'),
-    countriesList: document.querySelector('.js-countries-list'),
-  }
+  articleContainer : document.querySelector('.js-articles'),
+  searchForm: document.querySelector('.js-search-form')
+}
 
-  const  onInputChange = e => {
-    let searchQuery = e.target.value
-  if (searchQuery) {
-    fetchCountries(searchQuery).then(info.showResult)
-  }
-  }
-  
-  refs.input.addEventListener('input', debounce(onInputChange, 500))
+refs.searchForm.addEventListener('submit', e=>{
+e.preventDefault()
 
-  
-  const fetchCountries = (searchQuery) => {
-    const MAIL_URL = 'https://restcountries.eu/rest/v2/name/'
-    let url = `${MAIL_URL}${searchQuery}`
-     return fetch(url).then(res => res.json()).catch(err => console.log(err))
-  }
-  
-  const render = {
-    countriesList(data) {
-      const markup = countriesListHbs(data)
-      refs.countriesList.innerHTML = ''
-      refs.countriesList.insertAdjacentHTML('beforeend', markup)
-    },
-    country(data) {
-      const markup = countryInfoHbs(...data)
-      refs.countriesList.innerHTML = ''
-      refs.countriesList.insertAdjacentHTML('beforeend', markup)
-    
-    }
-  }
+const inputValue = e.currentTarget.elements[0].value
 
-  const info = {
-    showResult(data) {
-      const countriesCount = data.length;
-      
-      if (countriesCount > 10) {
-        const message = "Too many matches found"
-        const type = 'info'
-        showNotification(message, type)
-      } else if ((countriesCount >= 2)&&(countriesCount <= 10)){
-        render.countriesList(data)
-      } else if (countriesCount === 1) {
-        render.country(data)
-      } else {
-        const message = "Matches not found"
-        const type = 'error'
-        showNotification(message, type) 
-      }
-      },
-      showNotification(message, type) {
-      const myNotification = alert({
-        type: `${type}`,
-        text: `${message}`,
-        mode: 'light',
-        delay: 2000,
-        sticker: false,
-        maxTextHeight: null,
-        addClass: 'notification',
-      });
-    
-      myNotification.on('click', () => {
-        myNotification.close();
-      });
-    }
-    
-    }
-    
+refs.articleContainer.innerHTML = '';
+
+fetchArticles(inputValue)
+.then(updateArticlesMarkup)
+
+})
+
+//&    === fetch ===
+// function fetchArticles(searchQuery){
+
+//   const API = '83b8de66f4e44356b629957251220cf4';
+//   const URL = 'https://newsapi.org/v2/everything?q=${inputValue}';
+  
+//   const options = {
+//     method: 'GET',
+//     header: {
+//       Accept : 'application/json',
+//       'X-Api-Key': API
+//     }
+//   }
+  
+// fetch(`${URL}&apiKey=${API}`, options)
+// .then(response=> response.json())
+// .then(({articles}) => {
+
+//   updateArticlesMarkup(articles)
+// })
+// .catch(error=>console.log(error))
+// }
+
+
+//&    === markup ===
+// function updateArticlesMarkup(articles){
+//   const markup = template(articles)
+
+//   refs.articleContainer.insertAdjacentHTML('beforeend', markup)
+
+// }
