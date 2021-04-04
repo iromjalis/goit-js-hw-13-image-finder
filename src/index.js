@@ -7,6 +7,16 @@ const refs = {
     countriesList: document.querySelector('.js-countries-list'),
   }
 
+  const  onInputChange = e => {
+    let searchQuery = e.target.value
+  if (searchQuery) {
+    fetchCountries(searchQuery).then(info.showResult)
+  }
+  }
+  
+  refs.input.addEventListener('input', debounce(onInputChange, 500))
+
+  
   const fetchCountries = (searchQuery) => {
     const MAIL_URL = 'https://restcountries.eu/rest/v2/name/'
     let url = `${MAIL_URL}${searchQuery}`
