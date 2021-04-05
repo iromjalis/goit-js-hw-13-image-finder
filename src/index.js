@@ -3,6 +3,7 @@ import './styles.css'
 import fetchArticles from './js/fetchArticles.js'
 import updateArticlesMarkup from './js/updateArticlesMarkup.js'
 import { format } from 'core-js/core/date'
+const debounce = require('lodash.debounce');
 
 // fetch('http://jsonplaceholder.typicode.com/todos', options)
 // .then(response=> response.json())
@@ -20,20 +21,16 @@ const refs = {
   searchForm: document.querySelector('.js-search-form')
 }
 
-refs.searchForm.addEventListener('submit', e=>{
-e.preventDefault()
-
-const inputValue = e.currentTarget.elements[0].value
-
-refs.articleContainer.innerHTML = '';
-
-fetchArticles(inputValue)
-.then(updateArticlesMarkup)
-
-})
+const onInputChange = e=>{
+  e.preventDefault()
+  
+  const inputValue = e.currentTarget.elements[0].value
+}
+// refs.searchForm.addEventListener('submit', debounce(onInputChange, 500))
+refs.searchForm.addEventListener('submit', onInputChange)
 
 //&    === fetch ===
-// function fetchArticles(searchQuery){
+// function fetchArticles(searchQuery){c
 
 //   const API = '83b8de66f4e44356b629957251220cf4';
 //   const URL = 'https://newsapi.org/v2/everything?q=${inputValue}';
