@@ -1,62 +1,130 @@
+import newsService from './js/news-service';
+import updateArticlesMarkup from './js/update-articles-markup';
+import LoadMoreBtn from './js/components/load-more-button';
+import refs from './js/refs';
 import './styles.css';
-import template from './template/templateArticles.hbs'
-// import fetchArticles from './js/fetchArticles';
-// import updateArticlesMarkup from './js/updateArticleMarkup';
 
+const loadMoreBtn = new LoadMoreBtn({
+  selector: 'button[data-action="load-more"]',
+  hidden: true,
+});
 
-// fetch('http://jsonplaceholder.typicode.com/todos', options)
-// .then(response=> response.json())
-// .then(data=> console.log(data))
+refs.searchForm.addEventListener('submit', searchFormSubmitHandler);
+loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
 
-// fetch('http://jsonplaceholder.typicode.com/photos', options)
-// .then(response=> response.json())
-// .then(data=> console.log(data))
+function searchFormSubmitHandler(event) {
+  event.preventDefault();
 
-// fetch('http://hn.algolia.com/api/v1/search?query=html&tags=story', options)
-// .then(response=> response.json())
-// .then(data=> console.log(data))
-const refs = {
-  articleContainer : document.querySelector('.js-articles'),
-  searchForm: document.querySelector('.js-search-form')
+  const form = event.currentTarget;
+  newsService.query = form.elements.query.value;
+
+  clearArticlesContainer();
+  newsService.resetPage();
+  fetchArticles();
+  form.reset();
 }
 
-const onInputChange = e=>{
-  e.preventDefault()
+function fetchArticles() {
+  loadMoreBtn.disable();
+
+  newsService.fetchArticles().then(articles => {
+    updateArticlesMarkup(articles);
+    loadMoreBtn.show();
+    loadMoreBtn.enable();
+  });
+}
+
+function clearArticlesContainer() {
+  refs.articlesContainer.innerHTML = '';
+}
+
+// import './styles.css';
+// import template from './template/templateArticles.hbs'
+// // fetch('http://jsonplaceholder.typicode.com/todos', options)
+// // fetch('http://jsonplaceholder.typicode.com/photos', options)
+// // fetch('http://hn.algolia.com/api/v1/search?query=html&tags=story', options)
+
+// const refs = {
+//   articleContainer : document.querySelector('.js-articles'),
+//   searchForm: document.querySelector('.js-search-form'),
+//   inputForm: document.querySelector('.form-control'),
+//   btn: document.querySelector('.button-more')
+// }
+// refs.btn.style.display = 'none';
+
+// let searchQuery = '';
+// let page = 1;
+
+// const onInputChange = e => {
+//   e.preventDefault()
+//   let searchQuery = '';
+
+//   searchQuery = e.currentTarget.elements[0].value;
+//   console.log(searchQuery);
+// }
+// //&      === submit ===
+// refs.searchForm.addEventListener('submit', e => {
+//   e.preventDefault()
   
-  const inputValue = e.currentTarget.elements[0].value;
-  console.log(inputValue);
+//   refs.articleContainer.innerHTML = ''
 
-}
-refs.searchForm.addEventListener('submit', fetchArticles())
+//   page=1;
+//   const searchQuery = refs.inputForm.value;
+//   console.log(searchQuery);
+//   fetchArticles(searchQuery)
+//   .then(articles=>{
+//     updateArticlesMarkup(articles);
+//     page +=1;
 
-//&    === fetch ===
-function fetchArticles (searchQuery){
+//   })
+//   .catch(console.log('Error'))
+// }
+// )
 
-  const API = '83b8de66f4e44356b629957251220cf4';
-  const URL = 'https://newsapi.org/v2/everything?q=${inputValue}';
+// refs.btn.addEventListener('click', ()=>{
+//   page +=1;
+
+//   fetchArticles(searchQuery,page);
+//   // .then(updateArticlesMarkup())
+//   // .catch(error=> console.log('Error'))
+// })
+
+// //&    === fetch ===
+// function fetchArticles (searchQuery, page){
+//   const API = '83b8de66f4e44356b629957251220cf4';
+//   const PAGE_SIZE = 3;
+//   const URL = `https://newsapi.org/v2/everything?q=bitcoin&q=${searchQuery}&apiKey=${API}&pageSize=${PAGE_SIZE}&page=${page}`;
+
+//   const options = {
+//     method: 'GET',
+//     header: {
+//       Accept : 'application/json',
+//       'X-Api-Key': API
+//     }
+//   }
   
-  const options = {
-    method: 'GET',
-    header: {
-      Accept : 'application/json',
-      'X-Api-Key': API
-    }
-  }
-  
-fetch(`${URL}&apiKey=${API}`, options)
-.then(response=> response.json())
-.then(({articles}) => {
+// return fetch(URL, options)
+// .then(response=> response.json())
+// .then(({articles}) => {
 
-  updateArticlesMarkup(articles)
-})
-.catch(error=>console.log(error))
-}
+//   updateArticlesMarkup(articles),
+//   window.scrollTo({
+//     top:684,
+//     behavior: 'smooth',
+//   })
+
+// })
+// .catch(error=>console.log(error))
 
 
-// &    === markup ===
-function updateArticlesMarkup(articles){
-  const markup = template(articles)
 
-  refs.articleContainer.insertAdjacentHTML('beforeend', markup)
 
-}
+// }
+// // &    === markup ===
+// function updateArticlesMarkup(articles){
+//   const markup = template(articles)
+
+//   refs.articleContainer.insertAdjacentHTML('beforeend', markup)
+
+//   refs.btn.style.display = 'block';
+// }

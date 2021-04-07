@@ -1,5 +1,5 @@
 const API = '83b8de66f4e44356b629957251220cf4';
-const URL = 'https://newsapi.org/v2/everything?q=${inputValue}';
+const URL = 'https://newsapi.org/v2/everything?q=${inputValue}&language=en&pageSize=10';
 
 const options = {
   method: 'GET',
