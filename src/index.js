@@ -4,6 +4,18 @@ import LoadMoreBtn from './js/components/load-more-button';
 import refs from './js/refs';
 import './styles.css';
 
+
+import { alert, notice, info, success, error, defaults, defaultModules} from '@pnotify/core';
+import "@pnotify/core/dist/PNotify.css" 
+import "@pnotify/desktop/dist/PNotifyDesktop" ;
+import '@pnotify/core/dist/BrightTheme.css';
+
+import * as PNotifyFontAwesome5Fix from '@pnotify/font-awesome5-fix';
+import * as PNotifyFontAwesome5 from '@pnotify/font-awesome5';
+defaultModules.set(PNotifyFontAwesome5Fix, {});
+defaultModules.set(PNotifyFontAwesome5, {});
+defaults.width = '200px';
+
 const loadMoreBtn = new LoadMoreBtn({
   selector: 'button[data-action="load-more"]',
   hidden: true,
@@ -22,6 +34,7 @@ function searchFormSubmitHandler(event) {
   newsService.resetPage();
   fetchArticles();
   form.reset();
+
 }
 
 function fetchArticles() {
@@ -31,6 +44,7 @@ function fetchArticles() {
     updateArticlesMarkup(articles);
     loadMoreBtn.show();
     loadMoreBtn.enable();
+    onNotice()
   });
 }
 
@@ -38,93 +52,18 @@ function clearArticlesContainer() {
   refs.articlesContainer.innerHTML = '';
 }
 
-// import './styles.css';
-// import template from './template/templateArticles.hbs'
-// // fetch('http://jsonplaceholder.typicode.com/todos', options)
-// // fetch('http://jsonplaceholder.typicode.com/photos', options)
-// // fetch('http://hn.algolia.com/api/v1/search?query=html&tags=story', options)
+function onNotice(){
+  notice({
+    title: `Loading ${newsService.query}... Please wait`,
+    delay: 500,
+    })
+}
 
-// const refs = {
-//   articleContainer : document.querySelector('.js-articles'),
-//   searchForm: document.querySelector('.js-search-form'),
-//   inputForm: document.querySelector('.form-control'),
-//   btn: document.querySelector('.button-more')
-// }
-// refs.btn.style.display = 'none';
+//* модалочка
+// import * as basicLightbox from 'basiclightbox'
 
-// let searchQuery = '';
-// let page = 1;
+// const instance = basicLightbox.create(`
+//     <img src="assets/images/image.png" width="800" height="600">
+// `)
 
-// const onInputChange = e => {
-//   e.preventDefault()
-//   let searchQuery = '';
-
-//   searchQuery = e.currentTarget.elements[0].value;
-//   console.log(searchQuery);
-// }
-// //&      === submit ===
-// refs.searchForm.addEventListener('submit', e => {
-//   e.preventDefault()
-  
-//   refs.articleContainer.innerHTML = ''
-
-//   page=1;
-//   const searchQuery = refs.inputForm.value;
-//   console.log(searchQuery);
-//   fetchArticles(searchQuery)
-//   .then(articles=>{
-//     updateArticlesMarkup(articles);
-//     page +=1;
-
-//   })
-//   .catch(console.log('Error'))
-// }
-// )
-
-// refs.btn.addEventListener('click', ()=>{
-//   page +=1;
-
-//   fetchArticles(searchQuery,page);
-//   // .then(updateArticlesMarkup())
-//   // .catch(error=> console.log('Error'))
-// })
-
-// //&    === fetch ===
-// function fetchArticles (searchQuery, page){
-//   const API = '83b8de66f4e44356b629957251220cf4';
-//   const PAGE_SIZE = 3;
-//   const URL = `https://newsapi.org/v2/everything?q=bitcoin&q=${searchQuery}&apiKey=${API}&pageSize=${PAGE_SIZE}&page=${page}`;
-
-//   const options = {
-//     method: 'GET',
-//     header: {
-//       Accept : 'application/json',
-//       'X-Api-Key': API
-//     }
-//   }
-  
-// return fetch(URL, options)
-// .then(response=> response.json())
-// .then(({articles}) => {
-
-//   updateArticlesMarkup(articles),
-//   window.scrollTo({
-//     top:684,
-//     behavior: 'smooth',
-//   })
-
-// })
-// .catch(error=>console.log(error))
-
-
-
-
-// }
-// // &    === markup ===
-// function updateArticlesMarkup(articles){
-//   const markup = template(articles)
-
-//   refs.articleContainer.insertAdjacentHTML('beforeend', markup)
-
-//   refs.btn.style.display = 'block';
-// }
+// instance.show()

@@ -1,20 +1,18 @@
-const apiKey = '83b8de66f4e44356b629957251220cf4';
+const apiKey = '21072245-3acfda09a1d5bc65070e6b336';
 
 export default {
-  searchQuery: '',
+  searchQuery: 'pet',
   page: 1,
   fetchArticles() {
-    const url = `http://newsapi.org/v2/everything?q=${this.query}&language=en&pageSize=5&page=${this.page}`;
-    const options = {
-      headers: { Authorization: apiKey },
-    };
+    const url = `https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=${this.query}&page=${this.page}&per_page=12&key=${apiKey}`;
+    ;
 
-    return fetch(url, options)
+    return fetch(url)
       .then(res => res.json())
-      .then(({ articles }) => {
+      .then(({hits}) => {
         this.incrementPage();
 
-        return articles;
+        return hits;
       });
   },
   resetPage() {
