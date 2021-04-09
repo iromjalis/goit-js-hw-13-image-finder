@@ -222,6 +222,10 @@ body {
   border-radius: 5px;
   text-align: left;
   background-color: beige;
+  padding: 1px 5px;
+  font-weight: bold;
+  font-weight: 18px;
+
  }
 
  .btn-primary{
