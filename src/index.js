@@ -20,6 +20,7 @@ const loadMoreBtn = new LoadMoreBtn({
   selector: 'button[data-action="load-more"]',
   hidden: true,
 });
+  loadMoreBtn.disable();
 
 refs.searchForm.addEventListener('submit', searchFormSubmitHandler);
 loadMoreBtn.refs.button.addEventListener('click', fetchArticles);
@@ -32,19 +33,25 @@ function searchFormSubmitHandler(event) {
 
   clearArticlesContainer();
   newsService.resetPage();
+
   fetchArticles();
   form.reset();
-
 }
 
 function fetchArticles() {
   loadMoreBtn.disable();
-
+if(!newsService.query ){
+      onError()
+      return
+    }
   newsService.fetchArticles().then(articles => {
-    updateArticlesMarkup(articles);
-    loadMoreBtn.show();
-    loadMoreBtn.enable();
-    onNotice()
+    
+    if(newsService.query){
+      onNotice() 
+      updateArticlesMarkup(articles);
+      loadMoreBtn.show();
+      loadMoreBtn.enable();
+    }
   });
 }
 
@@ -54,8 +61,14 @@ function clearArticlesContainer() {
 
 function onNotice(){
   notice({
-    title: `Loading ${newsService.query}... Please wait`,
+    title: `Loading... Please wait`,
     delay: 500,
+    })
+}
+function onError(){
+  error({
+    title: `Something went wront. Please try again`,
+    delay: 250,
     })
 }
 
