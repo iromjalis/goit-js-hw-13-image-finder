@@ -1,7 +1,9 @@
-const searchForm = document.querySelector('.js-search-form');
-const articlesContainer = document.querySelector('.js-articles');
+  const refs = {
+    searchForm : document.querySelector('.js-search-form'),
+    articlesContainer : document.querySelector('.js-articles') ,
+    galleryListRef : document.querySelector('.js-gallery') ,
+    modalImgRef : document.querySelector('.lightbox__image') ,
+    modalRef : document.querySelector('.lightbox')
+}
 
-export default {
-  searchForm,
-  articlesContainer,
-};
+export default refs

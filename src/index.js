@@ -1,7 +1,7 @@
 import newsService from './js/news-service';
 import updateArticlesMarkup from './js/update-articles-markup';
-import LoadMoreBtn from './js/components/load-more-button';
-import refs from './js/refs';
+import loadMoreBtn from './js/components/load-more-button';
+import refs from './js/refs.js';
 import './styles.css';
 
 
@@ -16,7 +16,7 @@ defaultModules.set(PNotifyFontAwesome5Fix, {});
 defaultModules.set(PNotifyFontAwesome5, {});
 defaults.width = '200px';
 
-const loadMoreBtn = new LoadMoreBtn({
+const loadMoreBtn = new loadMoreBtn({
   selector: 'button[data-action="load-more"]',
   hidden: true,
 });
@@ -72,11 +72,33 @@ function onError(){
     })
 }
 
-//* модалочка
-// import * as basicLightbox from 'basiclightbox'
+const onOpenModalClick = e => {
+  e.preventDefault();
 
-// const instance = basicLightbox.create(`
-//     <img src="assets/images/image.png" width="800" height="600">
-// `)
+  if (e.target.localName === 'img') {
+    refs.modalImgRef.src = e.target.dataset.source;
+    refs.modalImgRef.alt = e.target.alt;
+    refs.modalImgRef.dataset.index = e.target.dataset.index;
 
-// instance.show()
+    refs.modalRef.classList.add('is-open');
+  }
+};
+const onKeyboardClick = e => {
+  if (e.key === 'Escape') {
+    refs.modalRef.classList.remove('is-open');
+  }
+};
+
+const onCloseModalClick = e => {
+  if (e.target.localName !== 'img') {
+    refs.modalRef.classList.remove('is-open');
+
+    refs.modalImgRef.src = '';
+    refs.modalImgRef.alt = '';
+  }
+};
+
+refs.galleryListRef.addEventListener('click', onOpenModalClick);
+window.addEventListener('keyup', onKeyboardClick);
+window.addEventListener('click', onCloseModalClick);
+
