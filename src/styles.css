@@ -242,7 +242,7 @@ body {
    display: flex;
    justify-content: center;
    align-items: baseline;
-
+  padding: 10px;  
  }
  .material-icons{
    display: flex;

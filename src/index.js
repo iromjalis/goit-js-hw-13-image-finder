@@ -1,6 +1,6 @@
 import newsService from './js/news-service';
 import updateArticlesMarkup from './js/update-articles-markup';
-import loadMoreBtn from './js/components/load-more-button';
+import LoadMoreBtn from './js/components/load-more-button';
 import refs from './js/refs.js';
 import './styles.css';
 
@@ -14,10 +14,10 @@ import * as PNotifyFontAwesome5Fix from '@pnotify/font-awesome5-fix';
 import * as PNotifyFontAwesome5 from '@pnotify/font-awesome5';
 defaultModules.set(PNotifyFontAwesome5Fix, {});
 defaultModules.set(PNotifyFontAwesome5, {});
-defaults.width = '200px';
+defaults.width = '230px';
 
-const loadMoreBtn = new loadMoreBtn({
-  selector: 'button[data-action="load-more"]',
+const loadMoreBtn = new LoadMoreBtn({
+  selector: '[data-action="load-more"]',
   hidden: true,
 });
   loadMoreBtn.disable();
@@ -36,7 +36,8 @@ function searchFormSubmitHandler(event) {
 
   fetchArticles();
   form.reset();
-}
+
+  }
 
 function fetchArticles() {
   loadMoreBtn.disable();
@@ -61,14 +62,14 @@ function clearArticlesContainer() {
 
 function onNotice(){
   notice({
-    title: `Loading... Please wait`,
+    title: `Loading... Please wait!`,
     delay: 500,
     })
 }
 function onError(){
   error({
-    title: `Something went wront. Please try again`,
-    delay: 250,
+    title: `Something went wront. Please try again!`,
+    delay: 350,
     })
 }
 
