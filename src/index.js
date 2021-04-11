@@ -77,10 +77,8 @@ const onOpenModalClick = e => {
   e.preventDefault();
 
   if (e.target.localName === 'img') {
-    refs.modalImgRef.src = e.target.dataset.source;
-    refs.modalImgRef.alt = e.target.alt;
-    refs.modalImgRef.dataset.index = e.target.dataset.index;
-
+    onModalImgRef(e.target.alt, e.target.dataset.source)
+    
     refs.modalRef.classList.add('is-open');
   }
 };
@@ -94,14 +92,12 @@ const onCloseModalClick = e => {
   if (e.target.localName !== 'img') {
     refs.modalRef.classList.remove('is-open');
 
-    refs.modalImgRef.src = '';
-    refs.modalImgRef.alt = '';
+  onModalImgRef('','')
   }
 };
 function onModalImgRef(alt, src){
-  src = e.target.dataset.source;
-  alt = e.target.alt;
-
+  refs.modalImgRef.alt = alt
+  refs.modalImgRef.src = src
 }
 
 refs.galleryListRef.addEventListener('click', onOpenModalClick);

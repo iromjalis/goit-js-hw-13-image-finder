@@ -31,7 +31,9 @@ export default {
     return
   }
         return hits;
-      });
+      })
+      .catch(error=>console.log(error))
+
   },
   resetPage() {
     this.page = 1;
