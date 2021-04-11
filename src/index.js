@@ -98,6 +98,11 @@ const onCloseModalClick = e => {
     refs.modalImgRef.alt = '';
   }
 };
+function onModalImgRef(alt, src){
+  src = e.target.dataset.source;
+  alt = e.target.alt;
+
+}
 
 refs.galleryListRef.addEventListener('click', onOpenModalClick);
 window.addEventListener('keyup', onKeyboardClick);
