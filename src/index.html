@@ -1,57 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/images/favicon.png" type="image/png">
-    <title>Learning</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Homework 13</title>
+  <link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
 </head>
+
 <body>
-    <header class="header container">
-        <div class="logo">
-            <a href="/" target="_blank" rel="noopener noreferrer">LOGO</a>
-        </div>
-        <div class="nav">
-            <ul class="nav-list">
-                <li class="nav-item"><a href="http://" target="_blank" rel="noopener noreferrer">HOME</a></li>
-                <li class="nav-item"><a href="http://" target="_blank" rel="noopener noreferrer">MY LIBRARY</a></li>
-                <li class="nav-item"><a href="http://" target="_blank" rel="noopener noreferrer">SIGN <span class="in">IN</span>/ <spanc class="out">OUT</span></a></li>
-            </ul>
-        </div>
-    </header>
-    <main>
-        <div class="theme-switch">
-            <svg class="theme-switch__icon" role="img" aria-label="Иконка солнца">
-              <use href="./images/sprite.svg#sun"></use>
-            </svg>
-    
-            <div class="theme-switch__control">
-              <input
-                class="theme-switch__toggle"
-                type="checkbox"
-                name="theme"
-                id="theme-switch-toggle"
-                aria-label="Переключить между тёмной и светлой темой"
-              />
-              <label
-                aria-hidden="true"
-                class="theme-switch__track"
-                for="theme-switch-toggle"
-              >
-              </label>
-              <div aria-hidden="true" class="theme-switch__marker"></div>
-            </div>
-    
-            <svg class="theme-switch__icon" aria-label="Иконка луны">
-              <use href="./images/sprite.svg#moon"></use>
-            </svg>
-          </div>
-        </div>
-    
-        <!-- В этот список рендери разметку меню -->
-        <ul class="menu js-menu"></ul>
-    </main>
-    <footer></footer>
+  <form class="form-inline search-form js-search-form">
+    <div class="form-group mx-sm-3 mb-2">
+      <label for="searchQuery" class="sr-only"></label>
+      <input
+        type="text"
+        class="form-control"
+        name="query"
+        id="searchQuery"
+        placeholder="Search images..."
+        autocomplete="off"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Search</button>
+  </form>
+
+  <ul class="articles js-articles js-gallery"></ul>
+
+  <button
+    type="button"
+    class="btn btn-primary button"
+    data-action="load-more"
+  >
+    <span
+      class="spinner-border spinner-border-sm spinner is-hidden"
+      role="status"
+      aria-hidden="true"
+    ></span>
+
+    <span class="label">Показать ещё</span>
+  </button>
+
+  <div class="lightbox js-lightbox">
+    <div class="lightbox__overlay"></div>
+
+    <div class="lightbox__content">
+      <img class="lightbox__image" src="/" alt="Img" />
+    </div>
+
 </body>
+
 </html>
