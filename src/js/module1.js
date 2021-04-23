@@ -66,7 +66,27 @@ const value = 5;
 
 //*While - с предусловием - проверяет до вып цикла
 let counter=10
-while(counter>0){
-    console.log(counter);
-    counter--
-}
+// while(counter>0){
+//     console.log(counter);
+//     counter--
+// }
+//~ for(initialization; condition; post-expression){
+// ~    statements
+//~ }
+
+const max = 10;
+// for (let i=0; i<max; i+=1){
+//     console.log(`${max} % ${i} =`, max%i);
+//     if((max%i) ===2){
+//         console.log('here is continue');
+//         continue;
+//     }
+//     if((max%i) === 4){
+//         console.log('here is break');
+//         break;
+//     }
+// }
+// console.log('Hello');
+
+
+
