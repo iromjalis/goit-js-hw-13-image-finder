@@ -11,12 +11,15 @@ body {
     Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   background-color: beige;
   color: rgb(70, 18, 18);
+  margin: 30px;
 }
 .header{
-  width: 100vw;
-display: inline-flex;
-justify-content: space-evenly;align-items: center;
+  width: 100%;
+  display: inline-flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
 .nav-list{
   display: inline-flex;
   justify-content:start;
@@ -46,8 +49,11 @@ body.dark-theme {
 
 /* THEME SWITCH */
 .theme-switch {
-  display: flex;
+  width: 100%;
+  display: inline-flex;
+  justify-content:flex-end;
   align-items: center;
+  margin-right: 30px;
 }
 
 .theme-switch__icon {
